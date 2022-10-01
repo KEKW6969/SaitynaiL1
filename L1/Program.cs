@@ -7,6 +7,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<HotelsDbContext>();
 builder.Services.AddTransient<IHotelsRepository, HotelsRepository>();
+builder.Services.AddTransient<IFloorsRepository, FloorsRepository>();
 
 var app = builder.Build();
 
