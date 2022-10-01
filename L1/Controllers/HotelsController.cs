@@ -21,10 +21,10 @@ namespace L1.Controllers
         {
             var hotels = await _hotelsRepository.GetManyAsync();
 
-            return hotels.Select(o => new HotelDto(o.Name, o.Address, o.PhoneNumber));
+            return hotels.Select(o => new HotelDto(o.Id, o.Name, o.Address, o.PhoneNumber));
         }
 
-        [HttpGet]
+        [HttpGet()]
         [Route("{hotelId}", Name = "GetHotel")]
         public async Task<ActionResult<HotelDto>> Get(int hotelId)
         {
@@ -33,7 +33,7 @@ namespace L1.Controllers
             if (hotel == null)
                 return NotFound();
 
-            return new HotelDto(hotel.Name, hotel.Address, hotel.PhoneNumber);
+            return new HotelDto(hotel.Id, hotel.Name, hotel.Address, hotel.PhoneNumber);
         }
 
         [HttpPost]
@@ -43,7 +43,7 @@ namespace L1.Controllers
 
             await _hotelsRepository.CreateAsync(hotel);
 
-            return CreatedAtAction("GetHotel", new { hotelId = hotel.Id}, new HotelDto(hotel.Name, hotel.Address, hotel.PhoneNumber));
+            return Created("", new HotelDto(hotel.Id, hotel.Name, hotel.Address, hotel.PhoneNumber));
         }
 
         [HttpPut]
@@ -61,7 +61,7 @@ namespace L1.Controllers
 
             await _hotelsRepository.UpdateAsync(hotel);
 
-            return Ok(new HotelDto(hotel.Name, hotel.Address, hotel.PhoneNumber));
+            return Ok(new HotelDto(hotel.Id, hotel.Name, hotel.Address, hotel.PhoneNumber));
         }
 
         [HttpDelete]
