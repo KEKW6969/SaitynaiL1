@@ -1,0 +1,81 @@
+﻿using L1.Data.Dtos.Hotels;
+using L1.Data.Entities;
+using L1.Data.Repositories;
+using Microsoft.AspNetCore.Mvc;
+
+namespace L1.Controllers
+{
+    [ApiController]
+    [Route("api/hotels")]
+    public class HotelsController : ControllerBase
+    {
+        private readonly IHotelsRepository _hotelsRepository;
+
+        public HotelsController(IHotelsRepository hotelsRepository)
+        {
+            _hotelsRepository = hotelsRepository;
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<HotelDto>> GetMany()
+        {
+            var hotels = await _hotelsRepository.GetManyAsync();
+
+            return hotels.Select(o => new HotelDto(o.Name, o.Address, o.PhoneNumber));
+        }
+
+        [HttpGet]
+        [Route("{hotelId}", Name = "GetHotel")]
+        public async Task<ActionResult<HotelDto>> Get(int hotelId)
+        {
+            var hotel = await _hotelsRepository.GetAsync(hotelId);
+
+            if (hotel == null)
+                return NotFound();
+
+            return new HotelDto(hotel.Name, hotel.Address, hotel.PhoneNumber);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<HotelDto>> Create(CreateHotelDto createHotelDto)
+        {
+            var hotel = new Hotel { Name = createHotelDto.Name, Address = createHotelDto.Address, PhoneNumber = createHotelDto.PhoneNumber };
+
+            await _hotelsRepository.CreateAsync(hotel);
+
+            return CreatedAtAction("GetHotel", new { hotelId = hotel.Id}, new HotelDto(hotel.Name, hotel.Address, hotel.PhoneNumber));
+        }
+
+        [HttpPut]
+        [Route("{hotelId}")]
+        public async Task<ActionResult<HotelDto>> Update(int hotelId, UpdateHotelDto updateHotelDto)
+        {
+            var hotel = await _hotelsRepository.GetAsync(hotelId);
+
+            if (hotel == null)
+                return NotFound();
+
+            hotel.Name = updateHotelDto.Name;
+            hotel.Address = updateHotelDto.Address;
+            hotel.PhoneNumber = updateHotelDto.PhoneNumber;
+
+            await _hotelsRepository.UpdateAsync(hotel);
+
+            return Ok(new HotelDto(hotel.Name, hotel.Address, hotel.PhoneNumber));
+        }
+
+        [HttpDelete]
+        [Route("{hotelId}")]
+        public async Task<ActionResult> Remove(int hotelId)
+        {
+            var hotel = await _hotelsRepository.GetAsync(hotelId);
+
+            if (hotel == null)
+                return NotFound();
+
+            await _hotelsRepository.DeleteAsync(hotel);
+
+            return NoContent();
+        }
+    }
+}
