@@ -1,0 +1,146 @@
+{
+	"info": {
+		"_postman_id": "cfa2839e-a30f-42f9-85d2-137192ea2e12",
+		"name": "Rooms",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23623922"
+	},
+	"item": [
+		{
+			"name": "Get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5194/api/hotels/7/floors/6/rooms/4",
+					"host": [
+						"localhost"
+					],
+					"port": "5194",
+					"path": [
+						"api",
+						"hotels",
+						"7",
+						"floors",
+						"6",
+						"rooms",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMany",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5194/api/hotels/7/floors/6/rooms",
+					"host": [
+						"localhost"
+					],
+					"port": "5194",
+					"path": [
+						"api",
+						"hotels",
+						"7",
+						"floors",
+						"6",
+						"rooms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateRoom",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Number\": 5,\r\n    \"Price\": 169.69\r\n    \"Description\": \"Kambarys su numeriu 5\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5194/api/hotels/7/floors/6/rooms",
+					"host": [
+						"localhost"
+					],
+					"port": "5194",
+					"path": [
+						"api",
+						"hotels",
+						"7",
+						"floors",
+						"6",
+						"rooms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Number\": 5,\r\n    \"Price\": 169.69,\r\n    \"Description\": \"Kambarys su numeriu 5\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5194/api/hotels/7/floors/6/rooms/4",
+					"host": [
+						"localhost"
+					],
+					"port": "5194",
+					"path": [
+						"api",
+						"hotels",
+						"7",
+						"floors",
+						"6",
+						"rooms",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5194/api/hotels/7/floors/6/rooms/4",
+					"host": [
+						"localhost"
+					],
+					"port": "5194",
+					"path": [
+						"api",
+						"hotels",
+						"7",
+						"floors",
+						"6",
+						"rooms",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

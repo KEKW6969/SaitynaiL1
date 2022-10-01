@@ -16,9 +16,9 @@ namespace L1.Data.Repositories
     {
         private readonly HotelsDbContext _hotelsDbContext;
 
-        public FloorsRepository(HotelsDbContext floorsDbContext)
+        public FloorsRepository(HotelsDbContext hotelsDbContext)
         {
-            _hotelsDbContext = floorsDbContext;
+            _hotelsDbContext = hotelsDbContext;
         }
 
         public async Task<Floor?> GetAsync(Hotel hotel, int floorId)

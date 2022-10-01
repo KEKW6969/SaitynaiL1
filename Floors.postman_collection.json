@@ -1,0 +1,122 @@
+{
+	"info": {
+		"_postman_id": "1608dd28-0b63-4fc0-9d8e-3d599a20e759",
+		"name": "Floors",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23623922"
+	},
+	"item": [
+		{
+			"name": "Get",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "GetMany",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5194/api/hotels/6/floors",
+					"host": [
+						"localhost"
+					],
+					"port": "5194",
+					"path": [
+						"api",
+						"hotels",
+						"6",
+						"floors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateFloor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Number\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5194/api/hotels/6/floors",
+					"host": [
+						"localhost"
+					],
+					"port": "5194",
+					"path": [
+						"api",
+						"hotels",
+						"6",
+						"floors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Number\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5194/api/hotels/6/floors/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5194",
+					"path": [
+						"api",
+						"hotels",
+						"6",
+						"floors",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5194/api/hotels/6/floors/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5194",
+					"path": [
+						"api",
+						"hotels",
+						"6",
+						"floors",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

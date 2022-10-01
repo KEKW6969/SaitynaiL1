@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "39ca4477-10a7-4604-bfc1-cccc9b9344d4",
+		"name": "Hotels",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23623922"
+	},
+	"item": [
+		{
+			"name": "Get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5194/api/hotels/6",
+					"host": [
+						"localhost"
+					],
+					"port": "5194",
+					"path": [
+						"api",
+						"hotels",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMany",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5194/api/hotels",
+					"host": [
+						"localhost"
+					],
+					"port": "5194",
+					"path": [
+						"api",
+						"hotels"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateHotel",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Name\": \"Alanta Hotel\",\r\n    \"Address\": \"Alantos g. 33, Kaunas 50175\",\r\n    \"PhoneNumber\": \"(8-684) 53246\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5194/api/hotels",
+					"host": [
+						"localhost"
+					],
+					"port": "5194",
+					"path": [
+						"api",
+						"hotels"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Name\": \"Magnus Hotel Kaunas\",\r\n    \"Address\": \"Vytauto Ave 25 Lithuani\",\r\n    \"PhoneNumber\": \"(8-37) 214750\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5194/api/hotels/7",
+					"host": [
+						"localhost"
+					],
+					"port": "5194",
+					"path": [
+						"api",
+						"hotels",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5194/api/hotels/4",
+					"host": [
+						"localhost"
+					],
+					"port": "5194",
+					"path": [
+						"api",
+						"hotels",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

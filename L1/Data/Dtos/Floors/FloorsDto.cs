@@ -3,5 +3,5 @@ namespace L1.Data.Dtos.Floors
 {
     public record FloorDto(int Id, int Number, Hotel Hotel);
     public record CreateFloorDto(int Number);
-    public record UpdateFloorDto(int Number);
+    public record UpdateFloorDto(int Number, DateTime BookedFrom, DateTime BookedTo);
 }
