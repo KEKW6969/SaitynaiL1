@@ -1,9 +1,11 @@
-﻿using L1.Data.Entities;
+﻿using L1.Auth.Model;
+using L1.Data.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace L1.Data
 {
-    public class HotelsDbContext : DbContext
+    public class HotelsDbContext : IdentityDbContext<HotelRestUser>
     {
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<Floor> Floors { get; set; }
