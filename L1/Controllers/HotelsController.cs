@@ -14,12 +14,15 @@ namespace L1.Controllers
     public class HotelsController : ControllerBase
     {
         private readonly IHotelsRepository _hotelsRepository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public HotelsController(IHotelsRepository hotelsRepository)
+        public HotelsController(IHotelsRepository hotelsRepository, IAuthorizationService authorizationService)
         {
             _hotelsRepository = hotelsRepository;
+            _authorizationService = authorizationService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<HotelDto>> GetMany()
         {
@@ -28,6 +31,7 @@ namespace L1.Controllers
             return hotels.Select(o => new HotelDto(o.Id, o.Name, o.Address, o.PhoneNumber));
         }
 
+        [AllowAnonymous]
         [HttpGet()]
         [Route("{hotelId}", Name = "GetHotel")]
         public async Task<ActionResult<HotelDto>> Get(int hotelId)
@@ -61,6 +65,11 @@ namespace L1.Controllers
 
             if (hotel == null)
                 return NotFound();
+
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, hotel, PolicyNames.ResourceOwner);
+
+            if (!authorizationResult.Succeeded)
+                return Forbid();
 
             hotel.Name = updateHotelDto.Name;
             hotel.Address = updateHotelDto.Address;

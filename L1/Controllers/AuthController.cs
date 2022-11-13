@@ -13,6 +13,7 @@ namespace L1.Controllers
     {
         private readonly UserManager<HotelRestUser> _userManager;
         private readonly IJwtTokenService _jwtTokenService;
+        private List<string> blackList = new List<string>();
 
         public AuthController(UserManager<HotelRestUser> userManager, IJwtTokenService jwtTokenService)
         {
@@ -61,5 +62,12 @@ namespace L1.Controllers
 
             return Ok(new SuccessfulLoginDto(accessToken));
         }
+        [HttpPost]
+        [Route("logout")]
+        public async Task<IActionResult> Logout(LogoutDto logoutDto)
+        {
+            return Ok();
+        }
+
     }
 }

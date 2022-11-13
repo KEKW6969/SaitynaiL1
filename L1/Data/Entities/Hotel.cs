@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace L1.Data.Entities
 {
-    public class Hotel
+    public class Hotel : IUserOwnedResource
     {
         public int Id { get; set; }
         public string Name { get; set; }
