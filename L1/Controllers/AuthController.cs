@@ -3,6 +3,8 @@ using L1.Auth.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace L1.Controllers
 {
@@ -58,7 +60,10 @@ namespace L1.Controllers
                 return BadRequest("User name or password is invalid.");
 
             var roles = await _userManager.GetRolesAsync(user);
+
             var accessToken = _jwtTokenService.CreateAccessToken(user.UserName, user.Id, roles);
+            var jti = _jwtTokenService.ReturnGuid();
+            await _userManager.SetAuthenticationTokenAsync(user, "JWT", "JWT Token", jti);
 
             return Ok(new SuccessfulLoginDto(accessToken));
         }
@@ -66,6 +71,13 @@ namespace L1.Controllers
         [Route("logout")]
         public async Task<IActionResult> Logout(LogoutDto logoutDto)
         {
+            HotelRestUser hotelsRestUser = await _userManager.FindByIdAsync(User.FindFirstValue(JwtRegisteredClaimNames.Sub));
+            var jti = await _userManager.GetAuthenticationTokenAsync(hotelsRestUser, "JWT", "JWT Token");
+            if (jti != User.FindFirstValue(JwtRegisteredClaimNames.Jti))
+                return Unauthorized();
+
+            await _userManager.RemoveAuthenticationTokenAsync(hotelsRestUser, "JWT", "JWT Token");
+
             return Ok();
         }
 

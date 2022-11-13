@@ -8,4 +8,5 @@ namespace L1.Auth.Model
     public record UserDto(string Id, string UserName, string Email);
     public record SuccessfulLoginDto(string AccessToken);
     public record LogoutDto(string UserName);
+    public record SuccessfulLogoutDto(string accessToken);
 }

@@ -34,7 +34,7 @@ public class AuthDbSeeder
             var createAdminUserResult = await _userManager.CreateAsync(newAdminUser, "VerySafePassword1!");
             if (createAdminUserResult.Succeeded)
             {
-                await _userManager.AddToRolesAsync(newAdminUser, HotelRoles.All);
+                await _userManager.AddToRoleAsync(newAdminUser, HotelRoles.Admin);
             }
         }
 

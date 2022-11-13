@@ -8,6 +8,7 @@ namespace L1.Auth
     public interface IJwtTokenService
     {
         public string CreateAccessToken(string userName, string userId, IEnumerable<string> userRoles);
+        public string ReturnGuid();
     }
 
     public class JwtTokenService : IJwtTokenService
@@ -15,6 +16,7 @@ namespace L1.Auth
         private readonly SymmetricSecurityKey _authSigningKey;
         private readonly string _issuer;
         private readonly string _audience;
+        public static string guid { get; set; }
 
         public JwtTokenService(IConfiguration configuration)
         {
@@ -23,12 +25,18 @@ namespace L1.Auth
             _audience = configuration["JWT:ValidAudience"];
         }
 
+        public string ReturnGuid()
+        {
+            return guid;
+        }
+
         public string CreateAccessToken(string userName, string userId, IEnumerable<string> userRoles)
         {
+            guid = Guid.NewGuid().ToString();
             var authClaims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, userName),
-                new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new(JwtRegisteredClaimNames.Jti, guid),
                 new Claim(JwtRegisteredClaimNames.Sub, userId),
             };
 
