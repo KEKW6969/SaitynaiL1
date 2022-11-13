@@ -1,24 +1,29 @@
-﻿using L1.Data.Dtos.Floors;
+﻿using L1.Auth.Model;
+using L1.Data.Dtos.Floors;
 using L1.Data.Dtos.Rooms;
 using L1.Data.Entities;
 using L1.Data.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace L1.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/hotels/{hotelId}/floors/{floorId}/rooms")]
     public class RoomsController : ControllerBase
     {
         private readonly IRoomsRepository _roomsRepository;
         private readonly IFloorsRepository _floorsRepository;
         private readonly IHotelsRepository _hotelsRepository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public RoomsController(IFloorsRepository floorsRepository, IHotelsRepository hotelsRepository, IRoomsRepository roomsRepository)
+        public RoomsController(IFloorsRepository floorsRepository, IHotelsRepository hotelsRepository, IRoomsRepository roomsRepository, IAuthorizationService authorizationService)
         {
             _floorsRepository = floorsRepository;
             _hotelsRepository = hotelsRepository;
             _roomsRepository = roomsRepository;
+            _authorizationService = authorizationService;
         }
 
         [HttpGet]
@@ -28,6 +33,11 @@ namespace L1.Controllers
 
             if (hotel == null)
                 return NotFound();
+
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, hotel, PolicyNames.ResourceOwner);
+
+            if (!authorizationResult.Succeeded)
+                return Forbid();
 
             var floor = await _floorsRepository.GetAsync(hotel, floorId);
 
@@ -46,6 +56,11 @@ namespace L1.Controllers
 
             if (hotel == null)
                 return NotFound();
+
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, hotel, PolicyNames.ResourceOwner);
+
+            if (!authorizationResult.Succeeded)
+                return Forbid();
 
             var floor = await _floorsRepository.GetAsync(hotel, floorId);
 
@@ -68,6 +83,11 @@ namespace L1.Controllers
             if (hotel == null || hotel.Result == null)
                 return NotFound();
 
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, hotel, PolicyNames.ResourceOwner);
+
+            if (!authorizationResult.Succeeded)
+                return Forbid();
+
             var floor = _floorsRepository.GetAsync(hotel.Result, floorId);
 
             if (floor == null || floor.Result == null)
@@ -88,6 +108,11 @@ namespace L1.Controllers
 
             if (hotel == null)
                 return NotFound();
+
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, hotel, PolicyNames.ResourceOwner);
+
+            if (!authorizationResult.Succeeded)
+                return Forbid();
 
             var floor = await _floorsRepository.GetAsync(hotel, floorId);
 
@@ -116,6 +141,11 @@ namespace L1.Controllers
 
             if (hotel == null)
                 return NotFound();
+
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, hotel, PolicyNames.ResourceOwner);
+
+            if (!authorizationResult.Succeeded)
+                return Forbid();
 
             var floor = await _floorsRepository.GetAsync(hotel, floorId);
 

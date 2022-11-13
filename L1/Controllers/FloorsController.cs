@@ -1,21 +1,26 @@
-﻿using L1.Data.Dtos.Floors;
+﻿using L1.Auth.Model;
+using L1.Data.Dtos.Floors;
 using L1.Data.Entities;
 using L1.Data.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace L1.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/hotels/{hotelId}/floors")]
     public class FloorsController : ControllerBase
     {
         private readonly IFloorsRepository _floorsRepository;
         private readonly IHotelsRepository _hotelsRepository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public FloorsController(IFloorsRepository floorsRepository, IHotelsRepository hotelsRepository)
+        public FloorsController(IFloorsRepository floorsRepository, IHotelsRepository hotelsRepository, IAuthorizationService authorizationService)
         {
             _floorsRepository = floorsRepository;
             _hotelsRepository = hotelsRepository;
+            _authorizationService = authorizationService;
         }
 
         [HttpGet]
@@ -25,6 +30,11 @@ namespace L1.Controllers
 
             if (hotel == null)
                 return NotFound();
+
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, hotel, PolicyNames.ResourceOwner);
+
+            if (!authorizationResult.Succeeded)
+                return Forbid();
 
             var floors = await _floorsRepository.GetManyAsync(hotel);
             return Ok(floors.Select(o => new FloorDto(o.Id, o.Number, o.Hotel)));
@@ -38,6 +48,11 @@ namespace L1.Controllers
 
             if (hotel == null)
                 return NotFound();
+
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, hotel, PolicyNames.ResourceOwner);
+
+            if (!authorizationResult.Succeeded)
+                return Forbid();
 
             var floor = await _floorsRepository.GetAsync(hotel, floorId);
 
@@ -55,6 +70,11 @@ namespace L1.Controllers
             if (hotel == null || hotel.Result == null)
                 return NotFound();
 
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, hotel.Result, PolicyNames.ResourceOwner);
+
+            if (!authorizationResult.Succeeded)
+                return Forbid();
+
             var floor = new Floor { Number = createFloorDto.Number, Hotel = hotel.Result };
 
             await _floorsRepository.CreateAsync(floor);
@@ -70,6 +90,11 @@ namespace L1.Controllers
 
             if (hotel == null)
                 return NotFound();
+
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, hotel, PolicyNames.ResourceOwner);
+
+            if (!authorizationResult.Succeeded)
+                return Forbid();
 
             var floor = await _floorsRepository.GetAsync(hotel, floorId);
 
@@ -91,6 +116,11 @@ namespace L1.Controllers
 
             if (hotel == null)
                 return NotFound();
+
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, hotel, PolicyNames.ResourceOwner);
+
+            if (!authorizationResult.Succeeded)
+                return Forbid();
 
             var floor = await _floorsRepository.GetAsync(hotel, floorId);
 

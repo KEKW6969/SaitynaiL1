@@ -89,6 +89,11 @@ namespace L1.Controllers
             if (hotel == null)
                 return NotFound();
 
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, hotel, PolicyNames.ResourceOwner);
+
+            if (!authorizationResult.Succeeded)
+                return Forbid();
+
             await _hotelsRepository.DeleteAsync(hotel);
 
             return NoContent();
