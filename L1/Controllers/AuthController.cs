@@ -69,7 +69,7 @@ namespace L1.Controllers
         }
         [HttpPost]
         [Route("logout")]
-        public async Task<IActionResult> Logout(LogoutDto logoutDto)
+        public async Task<IActionResult> Logout()
         {
             HotelRestUser hotelsRestUser = await _userManager.FindByIdAsync(User.FindFirstValue(JwtRegisteredClaimNames.Sub));
             var jti = await _userManager.GetAuthenticationTokenAsync(hotelsRestUser, "JWT", "JWT Token");

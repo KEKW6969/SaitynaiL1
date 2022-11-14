@@ -13,7 +13,7 @@ namespace L1.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog=ForumDb2");
+            optionsBuilder.UseSqlServer("Server=tcp:l1dbserver.database.windows.net,1433;Initial Catalog=L1_db;Persist Security Info=False;User ID=mirtisnerablogai;Password=nuzudykmane123.;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
     }
 }
