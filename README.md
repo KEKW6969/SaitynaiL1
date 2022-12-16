@@ -41,4 +41,4 @@ Sistemos administratorius galės sukurti ir administruoti viešbučius, jų auk�
 - Serverio pusė (angl. Back-end) – bus realizuojama naudojant ASP.NET Core. Duomenų bazė MSSQL.
 
 
-# Likusią ataskaitos dalį galima rasti projekte arba Moodle, pavadinimas - "Ataskaita.docx".
+# Likusią ataskaitos dalį galima rasti projekte arba Moodle, pavadinimas - "Ataskaita.pdf".
