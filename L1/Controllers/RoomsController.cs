@@ -49,7 +49,7 @@ namespace L1.Controllers
         }
 
         [HttpGet()]
-        [Route("{roomId}", Name = "RoomFloor")]
+        [Route("{roomId}", Name = "GetRoom")]
         public async Task<ActionResult<RoomDto>> Get(int hotelId, int floorId, int roomId)
         {
             var hotel = await _hotelsRepository.GetAsync(hotelId);
@@ -83,7 +83,7 @@ namespace L1.Controllers
             if (hotel == null || hotel.Result == null)
                 return NotFound();
 
-            var authorizationResult = await _authorizationService.AuthorizeAsync(User, hotel, PolicyNames.ResourceOwner);
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, hotel.Result, PolicyNames.ResourceOwner);
 
             if (!authorizationResult.Succeeded)
                 return Forbid();

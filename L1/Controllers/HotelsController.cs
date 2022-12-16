@@ -28,7 +28,7 @@ namespace L1.Controllers
         {
             var hotels = await _hotelsRepository.GetManyAsync();
 
-            return hotels.Select(o => new HotelDto(o.Id, o.Name, o.Address, o.PhoneNumber));
+            return hotels.Select(o => new HotelDto(o.Id, o.Name, o.Address, o.PhoneNumber, o.UserId));
         }
 
         [AllowAnonymous]
@@ -41,7 +41,7 @@ namespace L1.Controllers
             if (hotel == null)
                 return NotFound();
 
-            return new HotelDto(hotel.Id, hotel.Name, hotel.Address, hotel.PhoneNumber);
+            return new HotelDto(hotel.Id, hotel.Name, hotel.Address, hotel.PhoneNumber, hotel.UserId);
         }
 
         [HttpPost]
@@ -53,7 +53,7 @@ namespace L1.Controllers
 
             await _hotelsRepository.CreateAsync(hotel);
 
-            return Created("", new HotelDto(hotel.Id, hotel.Name, hotel.Address, hotel.PhoneNumber));
+            return Created("", new HotelDto(hotel.Id, hotel.Name, hotel.Address, hotel.PhoneNumber, hotel.UserId));
         }
 
         [HttpPut]
@@ -77,7 +77,7 @@ namespace L1.Controllers
 
             await _hotelsRepository.UpdateAsync(hotel);
 
-            return Ok(new HotelDto(hotel.Id, hotel.Name, hotel.Address, hotel.PhoneNumber));
+            return Ok(new HotelDto(hotel.Id, hotel.Name, hotel.Address, hotel.PhoneNumber, hotel.UserId));
         }
 
         [HttpDelete]

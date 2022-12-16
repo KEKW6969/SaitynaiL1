@@ -42,7 +42,14 @@ builder.Services.AddAuthorization(options =>
 
 builder.Services.AddSingleton<IAuthorizationHandler, ResourceOwnerAuthorizationHandler>();
 
+builder.Services.AddCors(p => p.AddPolicy("corspolicy", build =>
+{
+    build.WithOrigins("https://stunning-moonbeam-d478d5.netlify.app", "http://localhost:3000").AllowAnyMethod().AllowAnyHeader();
+}));
+
 var app = builder.Build();
+
+app.UseCors("corspolicy");
 
 app.UseRouting();
 
